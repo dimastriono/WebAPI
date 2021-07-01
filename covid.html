@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title>API COVID</title>
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="mainNav">
+      <div class="container">
+      <a class="navbar-brand" href="covid.html">API Data Covid</a>
+      <nav class="navbar navbar-light bg-light">
+        <form class="form-inline">
+          <a href=index.html type="button" class="btn btn-outline-primary">MAPS</a>
+        </form>
+      </nav>
+    </nav>
+
+    <div class="jumbotron jumbotron-fluid bg-primary text-white">
+      <div class="container text-center">
+        <br>
+        <br>
+        <h1 class="display-4">DATA COVID</h1>
+        <p class="lead">
+          <h2>
+            UPDATE KASUS COVID DI INDONESIA
+            <br>SECARA REAL-TIME
+          </h2>
+      </div>
+    </div>
+
+    <style type="text/css">
+      .box{
+        padding: 30px 40px;
+        border-radius: 8px;
+      }   
+    </style>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="bg-danger box text-white">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Positif</h5>
+                <h2 id="data-kasus">--</h2>
+                <h5>Orang</h5>
+              </div>
+              <div class="col-md-4">
+                <img src="img/sick.png" style="width:100px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-success box text-white">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Sembuh</h5>
+                <h2 id="data-sembuh">--</h2>
+                <h5>Orang</h5>
+              </div>
+              <div class="col-md-4">
+                <img src="img/happy.png" style="width:100px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="bg-info box text-white">
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Meninggal</h5>
+                <h2 id="data-meninggal">--</h2>
+                <h5>Orang</h5>
+              </div>
+              <div class="col-md-4">
+                <img src="img/cry.png" style="width:100px">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    
+    <div class="badge badge-primary text-wrap" style="padding: 2px 4px;">
+      <h6><center>Tanggal:  <span id="tanggal"></span></center></h6>
+    </div>
+      <script>
+        var dt = new Date();
+        document.getElementById("tanggal").innerHTML = dt.toLocaleDateString();
+      </script>
+
+    <footer class="bg-primary text-center text-white mt-2 bt-1 pb-2">
+      DIMAS TRIONO - 182101952
+    </footer>
+   
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+  </body>
+</html>
+
+
+<script>
+    $(document).ready(function(){
+      semuaData();
+      function semuaData(){
+        $.ajax({
+          url : 'http://coronavirus-19-api.herokuapp.com/countries/indonesia',
+          success : function(data){
+            try{
+                var json = data;
+                var kasus = data.cases;
+                var sembuh = data.recovered;
+                var meninggal = data.deaths;
+                
+                $('#data-kasus').html(kasus);
+                $('#data-sembuh').html(sembuh);
+                $('#data-meninggal').html(meninggal);
+            }catch{
+              alert('Error');
+          }
+        }
+      });
+    }
+  });
+</script>
+
